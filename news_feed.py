@@ -16,6 +16,7 @@ import os
 import re
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -97,6 +98,17 @@ def when(s: str):
 def key_of(title: str) -> str:
     t = re.sub(r"\s+[-–|]\s+[^-–|]{2,40}$", "", title.lower())   # fjern " - Reuters"
     return re.sub(r"[^a-z0-9؀-ۿ]", "", t)[:70]
+
+
+def words(title: str) -> set:
+    t = re.sub(r"\s+[-–|]\s+[^-–|]{2,40}$", "", title.lower())
+    return {w for w in re.findall(r"[a-z0-9\u0600-\u06ff]+", t) if len(w) > 2}
+
+
+def similar(a: set, b: set) -> bool:
+    if not a or not b:
+        return False
+    return len(a & b) / min(len(a), len(b)) >= 0.8     # samme historie, lidt anden overskrift
 
 
 def relevant(text: str) -> bool:
@@ -254,7 +266,8 @@ def translate(text: str) -> str:
 
 def fmt(kind, i) -> str:
     t = i["dt"].astimezone(DK).strftime("%H:%M") if i["dt"] else ""
-    link = f"<{i['link']}>" if i["link"] else ""
+    label = "Åbn opslag" if kind in ("trump", "telegram") else "Læs artiklen"
+    link = f"🔗 [{label}](<{i['link']}>)" if i["link"] else ""
     if kind == "trump":
         body = i["desc"] or i["title"]
         return f"🇺🇸 **Trump (Truth Social)** · {t}\n{short(body, 900)}\n{link}"
@@ -268,16 +281,36 @@ def fmt(kind, i) -> str:
     return f"{flag} **{i['src']}** · {t}\n**{i['title']}**\n{link}"
 
 
-def post(text: str):
+def post(text: str) -> bool:
+    """Sender én besked. Respekterer Discords grænse (429) og prøver igen."""
     url = os.environ.get("DISCORD_FEED_WEBHOOK_URL") or os.environ.get("DISCORD_WEBHOOK_URL")
     if not url or os.environ.get("DRY_RUN"):
         print("---- (ikke sendt) ----\n" + text + "\n")
-        return
+        return True
+    import time
     body = json.dumps({"content": text[:1990], "username": "Dadash Nyheder",
                        "allowed_mentions": {"parse": []}}).encode()
-    req = urllib.request.Request(url, data=body, method="POST",
-                                 headers={"Content-Type": "application/json", "User-Agent": "dadash-news-feed"})
-    urllib.request.urlopen(req, timeout=20).read()
+    for attempt in range(5):
+        req = urllib.request.Request(url, data=body, method="POST",
+                                     headers={"Content-Type": "application/json", "User-Agent": "dadash-news-feed"})
+        try:
+            urllib.request.urlopen(req, timeout=20).read()
+            time.sleep(1.2)                      # max ca. 50 beskeder/min, under Discords grænse
+            return True
+        except urllib.error.HTTPError as e:
+            if e.code == 429:                    # for mange på én gang: vent det Discord beder om
+                try:
+                    wait = float(json.loads(e.read().decode()).get("retry_after", 2))
+                except Exception:
+                    wait = float(e.headers.get("Retry-After", 2) or 2)
+                time.sleep(min(wait, 30) + 0.5)
+                continue
+            print(f"Discord-fejl: {e}", file=sys.stderr)
+            return False
+        except Exception as e:
+            print(f"Discord-fejl: {e}", file=sys.stderr)
+            time.sleep(2)
+    return False
 
 
 def main():
@@ -287,6 +320,7 @@ def main():
     state = load_state()
     seen = state.setdefault("seen", {})
     first_run = not seen
+    recent = [set(w) for w in state.setdefault("titles", [])]
     fresh = []
     for kind, i in collect():
         k = key_of(i["title"] or i["desc"][:120]) or i["link"]
@@ -296,6 +330,12 @@ def main():
             continue
         if kind == "news" and not relevant(f"{i['title']} {i['desc']}"):
             continue
+        ws = words(i["title"]) if kind == "news" else set()
+        if ws and any(similar(ws, r) for r in recent):
+            seen[k] = now.isoformat()
+            continue
+        if ws:
+            recent.append(ws)
         seen[k] = now.isoformat()
         if i["link"]:
             seen[i["link"]] = now.isoformat()
@@ -313,11 +353,11 @@ def main():
             fresh.sort(key=lambda x: (x[0] != "trump", not urgent(x[1]["title"] or x[1]["desc"])))
             fresh = sorted(fresh[:MAX_POSTS_PER_RUN], key=lambda x: x[1]["dt"] or now)
         for kind, i in fresh:
-            try:
-                post(fmt(kind, i))
-            except Exception as e:
-                print(f"Discord-fejl: {e}", file=sys.stderr)
+            if not post(fmt(kind, i)):           # fejlede: prøv igen ved næste kørsel
+                seen.pop(key_of(i["title"] or i["desc"][:120]) or i["link"], None)
+                seen.pop(i["link"], None)
 
+    state["titles"] = [sorted(w) for w in recent[-400:]]
     cutoff = now - timedelta(days=3)
     state["seen"] = {k: v for k, v in seen.items() if datetime.fromisoformat(v) > cutoff}
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False), encoding="utf-8")
