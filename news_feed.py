@@ -33,7 +33,6 @@ RSS = [
     ("Al Jazeera", "https://www.aljazeera.com/xml/rss/all.xml"),
     ("BBC Mellemøsten", "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml"),
     ("BBC World", "https://feeds.bbci.co.uk/news/world/rss.xml"),
-    ("Times of Israel", "https://www.timesofisrael.com/feed/"),
     ("Jerusalem Post", "https://www.jpost.com/rss/rssfeedsheadlines.aspx"),
     ("Tehran Times", "https://www.tehrantimes.com/rss"),
     ("CNBC", "https://www.cnbc.com/id/100003114/device/rss/rss.html"),
@@ -49,6 +48,7 @@ GNEWS = [
     "(\"Federal Reserve\" OR Warsh OR \"rate hike\" OR \"rate cut\") when:2h",
     "(\"oil prices\" OR Brent OR OPEC OR tanker) when:2h",
     "(Hegseth OR Vance OR Rubio OR Pentagon) Iran when:2h",
+    "site:timesofisrael.com (Iran OR Hezbollah OR Houthi OR strike OR missile) when:2h",
 ]
 
 TRUMP_FEED = "https://trumpstruth.org/feed"          # Trumps Truth Social-opslag
