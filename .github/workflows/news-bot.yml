@@ -1,0 +1,45 @@
+name: Dadash News Bot
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"      # hvert 5. minut (GitHub kan forsinke et par minutter)
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Send en testbesked til Discord nu"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write              # så botten kan gemme state.json (hvad der er sendt)
+
+concurrency:
+  group: news-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35          # ved røde news venter den på tallene
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Kør botten
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          JBLANKED_API_KEY: ${{ secrets.JBLANKED_API_KEY }}
+          TEST_MESSAGE: ${{ github.event.inputs.test }}
+        run: python bot.py
+
+      - name: Gem hvad der er sendt
+        run: |
+          git config user.name "dadash-news-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state.json
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: opdater state"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
