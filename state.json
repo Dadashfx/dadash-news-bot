@@ -56,6 +56,14 @@
     "previous": "2.7"
    },
    {
+    "title": "G7 Meetings",
+    "country": "All",
+    "date": "2026-11-09T04:45:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": ""
+   },
+   {
     "title": "ECOFIN Meetings",
     "country": "EUR",
     "date": "2026-11-09T05:15:00-05:00",
@@ -230,6 +238,14 @@
     "impact": "Low",
     "forecast": "80B",
     "previous": "1080B"
+   },
+   {
+    "title": "G7 Meetings",
+    "country": "All",
+    "date": "2026-11-10T04:45:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": ""
    },
    {
     "title": "NFIB Small Business Index",
@@ -824,6 +840,6 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-09T18:29:05.513350+00:00"
+  "fetched": "2026-11-09T19:30:06.757819+00:00"
  }
 }
