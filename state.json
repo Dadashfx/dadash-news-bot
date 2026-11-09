@@ -46,22 +46,6 @@
     "previous": "19.5B"
    },
    {
-    "title": "M2 Money Supply y/y",
-    "country": "CNY",
-    "date": "2026-11-09T04:03:00-05:00",
-    "impact": "Low",
-    "forecast": "7.3%",
-    "previous": "7.2%"
-   },
-   {
-    "title": "New Loans",
-    "country": "CNY",
-    "date": "2026-11-09T04:03:00-05:00",
-    "impact": "Low",
-    "forecast": "80B",
-    "previous": "1080B"
-   },
-   {
     "title": "Sentix Investor Confidence",
     "country": "EUR",
     "date": "2026-11-09T04:30:00-05:00",
@@ -228,6 +212,22 @@
     "impact": "Medium",
     "forecast": "",
     "previous": ""
+   },
+   {
+    "title": "M2 Money Supply y/y",
+    "country": "CNY",
+    "date": "2026-11-10T04:03:00-05:00",
+    "impact": "Low",
+    "forecast": "7.3%",
+    "previous": "7.2%"
+   },
+   {
+    "title": "New Loans",
+    "country": "CNY",
+    "date": "2026-11-10T04:03:00-05:00",
+    "impact": "Low",
+    "forecast": "80B",
+    "previous": "1080B"
    },
    {
     "title": "NFIB Small Business Index",
@@ -814,6 +814,6 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-09T09:17:54.095803+00:00"
+  "fetched": "2026-11-09T11:17:13.581626+00:00"
  }
 }
