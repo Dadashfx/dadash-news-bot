@@ -829,14 +829,6 @@
     "previous": ""
    },
    {
-    "title": "Mortgage Delinquencies",
-    "country": "USD",
-    "date": "2026-11-13T10:15:00-05:00",
-    "impact": "Low",
-    "forecast": "",
-    "previous": "4.37%"
-   },
-   {
     "title": "Natural Gas Storage",
     "country": "USD",
     "date": "2026-11-13T10:30:00-05:00",
@@ -885,7 +877,7 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-13T15:25:04.876282+00:00"
+  "fetched": "2026-11-13T17:18:56.596520+00:00"
  },
  "jb_last": "2026-11-12T19:41:08.415176+00:00"
 }
