@@ -861,6 +861,14 @@
     "previous": ""
    },
    {
+    "title": "FOMC Financial Stability Report",
+    "country": "USD",
+    "date": "2026-11-13T16:00:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": ""
+   },
+   {
     "title": "FOMC Member Jefferson Speaks",
     "country": "USD",
     "date": "2026-11-13T19:00:00-05:00",
@@ -877,7 +885,7 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-13T20:46:29.598930+00:00"
+  "fetched": "2026-11-13T22:21:19.643334+00:00"
  },
  "jb_last": "2026-11-12T19:41:08.415176+00:00"
 }
