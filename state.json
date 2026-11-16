@@ -214,6 +214,14 @@
     "previous": ""
    },
    {
+    "title": "FOMC Member Hammack Speaks",
+    "country": "USD",
+    "date": "2026-11-16T14:15:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": ""
+   },
+   {
     "title": "RBNZ Financial Stability Report",
     "country": "NZD",
     "date": "2026-11-16T15:00:00-05:00",
@@ -990,7 +998,7 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-16T01:23:45.923783+00:00"
+  "fetched": "2026-11-16T02:32:50.656960+00:00"
  },
  "jb_last": "2026-11-12T19:41:08.415176+00:00"
 }
