@@ -537,7 +537,7 @@
     "title": "BOE Gov Bailey Speaks",
     "country": "GBP",
     "date": "2026-11-18T02:30:00-05:00",
-    "impact": "High",
+    "impact": "Medium",
     "forecast": "",
     "previous": ""
    },
@@ -937,7 +937,7 @@
     "title": "FOMC Member Waller Speaks",
     "country": "USD",
     "date": "2026-11-20T08:25:00-05:00",
-    "impact": "Medium",
+    "impact": "Low",
     "forecast": "",
     "previous": ""
    },
@@ -990,7 +990,7 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-15T23:19:55.700115+00:00"
+  "fetched": "2026-11-16T01:23:45.923783+00:00"
  },
  "jb_last": "2026-11-12T19:41:08.415176+00:00"
 }
