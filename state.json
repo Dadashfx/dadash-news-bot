@@ -889,20 +889,20 @@
     "previous": "0.0%"
    },
    {
-    "title": "Mortgage Delinquencies",
-    "country": "USD",
-    "date": "2026-11-19T10:15:00-05:00",
-    "impact": "Low",
-    "forecast": "",
-    "previous": "4.37%"
-   },
-   {
     "title": "Natural Gas Storage",
     "country": "USD",
     "date": "2026-11-19T10:30:00-05:00",
     "impact": "Low",
     "forecast": "25B",
     "previous": "61B"
+   },
+   {
+    "title": "Mortgage Delinquencies",
+    "country": "USD",
+    "date": "2026-11-19T11:30:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": "4.37%"
    },
    {
     "title": "FOMC Member Goolsbee Speaks",
@@ -1081,7 +1081,7 @@
     "previous": ""
    }
   ],
-  "fetched": "2026-11-19T13:55:26.437561+00:00"
+  "fetched": "2026-11-19T15:43:17.054901+00:00"
  },
  "jb_last": "2026-11-18T14:36:18.920071+00:00"
 }
