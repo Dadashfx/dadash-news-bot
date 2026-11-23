@@ -226,14 +226,6 @@
     "previous": "53.3"
    },
    {
-    "title": "Foreign Direct Investment ytd/y",
-    "country": "CNY",
-    "date": "2026-11-24T02:02:00-05:00",
-    "impact": "Low",
-    "forecast": "",
-    "previous": "-4.3%"
-   },
-   {
     "title": "German ifo Business Climate",
     "country": "EUR",
     "date": "2026-11-24T04:00:00-05:00",
@@ -384,6 +376,14 @@
     "impact": "Low",
     "forecast": "0.2%",
     "previous": "0.2%"
+   },
+   {
+    "title": "Foreign Direct Investment ytd/y",
+    "country": "CNY",
+    "date": "2026-11-25T02:02:00-05:00",
+    "impact": "Low",
+    "forecast": "",
+    "previous": "-4.3%"
    },
    {
     "title": "UBS Economic Expectations",
@@ -674,7 +674,7 @@
     "previous": "0.6%"
    }
   ],
-  "fetched": "2026-11-23T14:46:44.882575+00:00"
+  "fetched": "2026-11-23T15:49:02.641301+00:00"
  },
  "jb_last": "2026-11-23T14:56:45.877963+00:00"
 }
